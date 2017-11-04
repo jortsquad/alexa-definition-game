@@ -1,10 +1,12 @@
-from flask import Flask
+from flask import Flask#, session
 from flask_ask import Ask, statement, question, session
 from enum import Enum
 import json
 import requests
 import time
 import unidecode
+import os
+from binascii import hexlify
 
 app = Flask(__name__)
 ask = Ask(app, "/one")
@@ -54,7 +56,9 @@ def check_synonyms(user_guess, correct_word):
 @ask.launch
 def start_skill():
     welcome_message = "Welcome to my app hahahahaha. say... one"
+    #session["test"] = 0
     return question(welcome_message)
+
 
 # intents that the game will use
 @ask.intent("NewGameIntent")
@@ -63,12 +67,17 @@ def new_game():
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
+    session.attributes["test"] += 1
+    print session.attributes["test"]
     print UserGuess
-    return statement("Guess")
+    return statement(UserGuess)
 
 @ask.intent("HintIntent")
 def hint():
+    session.attributes["test"] = 1
+    print session.attributes["test"]
     pass
+    return statement("Statement")
 
 @ask.intent("SkipIntent")
 def skip():
@@ -88,4 +97,6 @@ def homepage():
     return "hi there"
 
 if __name__ == '__main__':
+    print hexlify(os.urandom(24))
+    app.secret_key = hexlify(os.urandom(24))
     app.run(debug=True)
