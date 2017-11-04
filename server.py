@@ -87,15 +87,5 @@ def exit():
 def homepage():
     return "hi there"
 
-@ask.intent("OneIntent")
-def return_one():
-    number = "one"
-    return statement(number)
-
-@ask.intent("TwoIntent")
-def return_one():
-    number = "two!!!"
-    return statement(number)
-
 if __name__ == '__main__':
     app.run(debug=True)
