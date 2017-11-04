@@ -2,9 +2,6 @@ from flask import Flask#, session
 from flask_ask import Ask, statement, question, session
 from enum import Enum
 import json
-import requests
-import time
-import unidecode
 import os
 from binascii import hexlify
 
