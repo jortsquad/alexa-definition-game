@@ -1,2 +1,4 @@
 ngrok
 *.pyc
+secrets.py
+.DS_Store
