@@ -12,3 +12,11 @@ class Word:
                 syn_text += ', '
             syn_text += self.synonyms[i]
         return self.word + ': ' + self.definition + ' [' + syn_text + ']'
+
+    def is_similar(self, other_word):
+        if other_word.lower() == word.lower():
+            return True
+        for synonym in synonyms:
+            if synonym.lower() == word.lower():
+                return True
+        return False
