@@ -50,12 +50,17 @@ def check_synonyms(user_guess, correct_word):
     else:
         return false
 
+
+
 @ask.launch
 def start_skill():
     welcome_message = "Welcome to my app hahahahaha. say... one"
-    #session["test"] = 0
     return question(welcome_message)
 
+@ask.on_session_started
+def new_session():
+    session.attributes["test"] = 1
+    print "sessiion started"
 
 # intents that the game will use
 @ask.intent("NewGameIntent")
@@ -71,8 +76,6 @@ def guess(UserGuess):
 
 @ask.intent("HintIntent")
 def hint():
-    session.attributes["test"] = 1
-    print session.attributes["test"]
     pass
     return statement("Statement")
 
@@ -94,6 +97,5 @@ def homepage():
     return "hi there"
 
 if __name__ == '__main__':
-    print hexlify(os.urandom(24))
     app.secret_key = hexlify(os.urandom(24))
     app.run(debug=True)
