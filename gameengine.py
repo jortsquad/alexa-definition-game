@@ -20,15 +20,15 @@ class GameEngine:
         self.hint = False
         self.total_score = 0
         self.round_score = DEFAULT_SCORE
-        self.word_obj = get_word()
+        self.word_obj = dictionary.get_word()
 
     def next_round(self):
         if(self.round >= 10):
-            return False
+            return (False, total_score)
         self.round += 1
-        self.word_obj = get_word()
+        self.word_obj = dictionary.get_word()
         self.round_score = DEFAULT_SCORE
-        return True
+        return (True, total_score)
 
     def guess(self, guessWord):
         self.guess += 1
@@ -65,6 +65,4 @@ class GameEngine:
         self.hint = False
         self.total_score = 0
         self.round_score = DEFAULT_SCORE
-
-    def get_word(self):
-        return dictionary.get_word()
+        self.word_obj = dictionary.get_word()
