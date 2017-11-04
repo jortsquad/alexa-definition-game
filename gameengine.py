@@ -24,11 +24,11 @@ class GameEngine:
 
     def next_round(self):
         if(self.round >= 10):
-            return (False, total_score)
+            return (False, total_score, "")
         self.round += 1
         self.word_obj = dictionary.get_word()
         self.round_score = DEFAULT_SCORE
-        return (True, total_score)
+        return (True, total_score,word_obj.definition)
 
     def guess(self, guessWord):
         self.guess += 1
