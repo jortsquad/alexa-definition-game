@@ -51,14 +51,40 @@ def check_synonyms(user_guess, correct_word):
     else:
         return false
 
-@app.route("/")
-def homepage():
-    return "hi there"
-
 @ask.launch
 def start_skill():
     welcome_message = "Welcome to my app hahahahaha. say... one"
     return question(welcome_message)
+
+# intents that the game will use
+@ask.intent("NewGameIntent")
+def new_game():
+    pass
+
+@ask.intent("GuessIntent")
+def guess():
+    pass
+
+@ask.intent("HintIntent")
+def hint():
+    pass
+
+@ask.intent("SkipIntent")
+def skip():
+    pass
+
+@ask.intent("RepeatIntent")
+def repeat():
+    pass
+
+@ask.intent("ExitIntent")
+def exit():
+    pass
+
+# old intents
+@app.route("/")
+def homepage():
+    return "hi there"
 
 @ask.intent("OneIntent")
 def return_one():
