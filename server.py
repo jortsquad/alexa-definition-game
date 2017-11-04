@@ -3,8 +3,8 @@ from flask_ask import Ask, statement, question, session
 from enum import Enum
 import json
 import requests
-import time
-import unidecode
+
+from dictionary import Dictionary
 
 app = Flask(__name__)
 ask = Ask(app, "/one")
@@ -86,16 +86,6 @@ def exit():
 @app.route("/")
 def homepage():
     return "hi there"
-
-@ask.intent("OneIntent")
-def return_one():
-    number = "one"
-    return statement(number)
-
-@ask.intent("TwoIntent")
-def return_one():
-    number = "two!!!"
-    return statement(number)
 
 if __name__ == '__main__':
     app.run(debug=True)
