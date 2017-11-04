@@ -35,7 +35,7 @@ class GameEngine:
             return (True, "Wrong. The answer is " + past_word)
         else:
             self.round_score -= DEFAULT_WRONG_GUESS_PENALTY
-            return (False, "Wrong")
+            return (False, "Wrong. Guess again.")
 
     def hint(self):
         if not self.hint:
