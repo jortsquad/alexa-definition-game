@@ -62,7 +62,7 @@ def start_skill():
 @ask.on_session_started
 def new_session():
     session.attributes["game_engine"] = GameEngine()
-    print "sessiion started"
+    print "session started"
 
 # intents that the game will use
 @ask.intent("NewGameIntent")
@@ -71,27 +71,31 @@ def new_game():
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
-    session.attributes["test"] += 1
-    print session.attributes["test"]
-    print UserGuess
-    return statement(UserGuess)
+    guess_message = session.attributes["game_engine"].guess(UserGuess)
+    if guess_message[0] == True:
+        session.attributes["game_engine"].next_round()
+    return statement(guess_message[1])
 
 @ask.intent("HintIntent")
 def hint():
-    pass
-    return statement("Statement")
+    hint_given = session.attributes["game_engine"].hint()
+    return statement(hint_given)
 
 @ask.intent("SkipIntent")
 def skip():
-    pass
+    skip_message = session.attributes["game_engine"].skip()
+    session.attributes["game_engine"].next_round()
+    return statement(skip_message)
 
 @ask.intent("RepeatIntent")
 def repeat():
-    pass
+    repeat_message = session.attributes["game_engine"].repeat()
+    return statement(repeat_message)
 
 @ask.intent("ExitIntent")
 def exit():
     pass
+
 
 # old intents
 @app.route("/")
