@@ -62,7 +62,7 @@ def start_skill():
 
 @ask.intent("OneIntent")
 def return_one():
-    number = get_one()
+    number = "one"
     return statement(number)
 
 @ask.intent("TwoIntent")
