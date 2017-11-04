@@ -3,8 +3,8 @@ DEFAULT_HINT_PENALTY = 2
 DEFAULT_WRONG_GUESS_PENALTY = 2
 
 from dictionary import Dictionary
-
 dictionary = Dictionary()
+
 
 class GameEngine:
 
@@ -22,7 +22,7 @@ class GameEngine:
         self.round += 1
         self.word_obj = dictionary.get_word()
         self.round_score = DEFAULT_SCORE
-        return (True, total_score,word_obj.definition)
+        return (True, total_score, word_obj.definition)
 
     def guess(self, guessWord):
         self.guess += 1
