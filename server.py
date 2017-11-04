@@ -4,6 +4,8 @@ from enum import Enum
 import json
 import requests
 
+from dictionary import Dictionary
+
 app = Flask(__name__)
 ask = Ask(app, "/one")
 
