@@ -62,8 +62,9 @@ def new_game():
     pass
 
 @ask.intent("GuessIntent")
-def guess():
-    pass
+def guess(UserGuess):
+    print UserGuess
+    return statement("Guess")
 
 @ask.intent("HintIntent")
 def hint():
