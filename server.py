@@ -5,6 +5,8 @@ import json
 import os
 from binascii import hexlify
 
+from gameengine import GameEngine
+
 app = Flask(__name__)
 ask = Ask(app, "/one")
 
@@ -59,7 +61,7 @@ def start_skill():
 
 @ask.on_session_started
 def new_session():
-    session.attributes["test"] = 1
+    session.attributes["game_engine"] = GameEngine()
     print "sessiion started"
 
 # intents that the game will use
