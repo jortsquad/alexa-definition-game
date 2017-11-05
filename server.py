@@ -13,8 +13,8 @@ ask = Ask(app, "/one")
 
 @ask.launch
 def start_skill():
-    game_engine = jsonpickle.decode(session.attributes["game_engine"]) 
-    welcome_message = "Welcome to the definition game! The first definition is " + game_engine.word_obj.definition
+    game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    welcome_message = "Welcome to the definition game! The first definition is... " + game_engine.word_obj.definition
     return question(welcome_message)
 
 @ask.on_session_started
@@ -22,7 +22,7 @@ def new_session():
     engine = GameEngine()
     engine.gen_new_word()
     session.attributes["game_engine"] = jsonpickle.encode(engine)
-    
+
     print "session started"
 
 # intents that the game will use
