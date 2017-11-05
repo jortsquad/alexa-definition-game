@@ -72,7 +72,7 @@ def new_game():
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
-    guess_message = session.attributes["game_engine"].guess(UserGuess)
+    guess_message = session.attributes["game_engine"].try_guess(UserGuess)
     if guess_message[0] == True:
         session.attributes["game_engine"].next_round()
     return statement(guess_message[1])
