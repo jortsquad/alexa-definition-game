@@ -4,7 +4,7 @@ import json
 
 from word import Word
 
-from secret import *
+from secrets import *
 
 
 RANDOM_WORD_BASE_URL = 'http://api.wordnik.com:80/v4/words.json/randomWord?'
@@ -30,7 +30,11 @@ class Dictionary():
     def _is_word_valid(self, word, definition):
         if definition is None:
             return False
+        if len(definition.strip()) == 0:
+            return False
         if len(definition) > 3 and definition.lower()[:3] == 'see':
+            return False
+        if 'spelling' in definition:
             return False
         if word.lower() in definition.lower():
             return False
