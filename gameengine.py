@@ -50,7 +50,7 @@ class GameEngine:
             hint = True
             self.round_score -= DEFAULT_HINT_PENALTY
 
-        hint_string = "The first letter is " + self.word_obj.word[0] + "... The length is " + str(len(self.word_obj.word))
+        hint_string = "The first letter is " + self.word_obj.word[0] + "... The word has " + str(len(self.word_obj.word)) + " letters"
 
         return hint_string
 
