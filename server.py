@@ -85,7 +85,8 @@ def skip():
         session.attributes["game_engine"] = jsonpickle.encode(game_engine)
         return question(skip_message + "... You have " + str(score) + " points. New word definition is....." + new_definition)
     else:
-        pass
+        score = next_round_tuple[1]
+        return statement("Game Over! You ended with a score of..... " + str(score) + " points.")
 
 @ask.intent("RepeatIntent")
 def repeat():
@@ -98,6 +99,7 @@ def repeat():
 
 @ask.intent("AMAZON.HelpIntent")
 def help():
+    print 'HELP'
     pass
 
 @ask.intent("AMAZON.StopIntent")
@@ -106,6 +108,7 @@ def stop():
 
 @ask.intent("AMAZON.CancelIntent")
 def cancel():
+    print 'CANCEL'
     pass
 
 
