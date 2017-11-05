@@ -29,7 +29,7 @@ def new_game():
 @ask.intent("GuessIntent")
 def guess(UserGuess):
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
-    
+
     guess_message = game_engine.try_guess(UserGuess)
 
     if guess_message[0] == True:
@@ -42,7 +42,7 @@ def guess(UserGuess):
 @ask.intent("HintIntent")
 def hint():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
-    
+
     hint_given = game_engine.get_hint()
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
@@ -51,19 +51,19 @@ def hint():
 @ask.intent("SkipIntent")
 def skip():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
-    
+
     skip_message = game_engine.skip()
-    game_engine.next_round()
+    new_definition = game_engine.next_round()[2]
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(skip_message)
+    return statement(skip_message + "... New word definition is " + new_definition)
 
 @ask.intent("RepeatIntent")
 def repeat():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
-    
+
     repeat_message = game_engine.repeat()
-    
+
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
     return statement(repeat_message)
 
