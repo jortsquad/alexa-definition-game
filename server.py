@@ -43,17 +43,21 @@ def guess(UserGuess):
     guess_message = game_engine.try_guess(UserGuess)
 
     if guess_message[0] == True:
+        # proceed to next round (either correct, or wrong three times)
         next_round_tuple = game_engine.next_round()
         if next_round_tuple[0]:
+            # go to next round
             score = next_round_tuple[1]
             new_definition = next_round_tuple[2]
 
             session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-            return statement(guess_message[1] + "... You have " + str(score) + " points. New word definition is....." + new_definition)
+            return question(guess_message[1] + "... You have " + str(score) + " points. New word definition is....." + new_definition)
         else:
-            pass
+            # end game
+            score = next_round_tuple[1]
+            return statement("Game Over! You ended with a score of..... " + str(score) + " points.")
 
-
+    # stay on this tround, guess again
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
 
     return question(guess_message[1])
