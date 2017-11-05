@@ -13,21 +13,27 @@ ask = Ask(app, "/one")
 
 @ask.launch
 def start_skill():
-    welcome_message = "Welcome to my app hahahahaha. say... one"
+    game_engine = jsonpickle.decode(session.attributes["game_engine"]) 
+    welcome_message = "Welcome to the definition game! The first definition is " + game_engine.word_obj.definition
     return question(welcome_message)
 
 @ask.on_session_started
 def new_session():
-    session.attributes["game_engine"] = jsonpickle.encode(GameEngine())
+    engine = GameEngine()
+    engine.gen_new_word()
+    session.attributes["game_engine"] = jsonpickle.encode(engine)
+    
     print "session started"
 
 # intents that the game will use
 @ask.intent("NewGameIntent")
 def new_game():
-    pass
+    print 'new game'
+    return question("new game")
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
+    print UserGuess
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
 
     guess_message = game_engine.try_guess(UserGuess)
@@ -37,7 +43,7 @@ def guess(UserGuess):
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
 
-    return statement(guess_message[1])
+    return question(guess_message[1])
 
 @ask.intent("HintIntent")
 def hint():
@@ -46,7 +52,7 @@ def hint():
     hint_given = game_engine.get_hint()
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(hint_given)
+    return question(hint_given)
 
 @ask.intent("SkipIntent")
 def skip():
@@ -56,7 +62,7 @@ def skip():
     new_definition = game_engine.next_round()[2]
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(skip_message + "... New word definition is " + new_definition)
+    return question(skip_message + "... New word definition is " + new_definition)
 
 @ask.intent("RepeatIntent")
 def repeat():
@@ -65,10 +71,11 @@ def repeat():
     repeat_message = game_engine.repeat()
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(repeat_message)
+    return question(repeat_message)
 
 @ask.intent("ExitIntent")
 def exit():
+    print 'exiting'
     pass
 
 

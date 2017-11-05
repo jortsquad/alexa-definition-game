@@ -16,9 +16,11 @@ class GameEngine:
         self.hint = False
         self.total_score = 0
         self.round_score = DEFAULT_SCORE
+  
+    def gen_new_word(self):
         self.word_obj = dictionary.get_word()
         print self.word_obj.word
-
+    
     # Go to next_round
     #returns (isGameStillRunning, total_score, definition)
     def next_round(self):
