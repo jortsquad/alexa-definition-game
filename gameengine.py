@@ -2,12 +2,14 @@ DEFAULT_SCORE = 10
 DEFAULT_HINT_PENALTY = 2
 DEFAULT_WRONG_GUESS_PENALTY = 2
 
+# get dictionary
 from dictionary import Dictionary
-
 dictionary = Dictionary()
+
 
 class GameEngine:
 
+    # Set up gameengine
     def __init__(self):
         self.round = 1
         self.guess = 0
@@ -17,6 +19,8 @@ class GameEngine:
         self.word_obj = dictionary.get_word()
         print self.word_obj.word
 
+    # Go to next_round
+    #returns (isGameStillRunning, total_score, definition)
     def next_round(self):
         if(self.round >= 10):
             return (False, self.total_score, "")
