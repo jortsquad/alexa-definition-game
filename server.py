@@ -14,7 +14,7 @@ ask = Ask(app, "/one")
 @ask.launch
 def start_skill():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
-    welcome_message = "Welcome to the definition game! The first definition is... " + game_engine.word_obj.definition
+    welcome_message = "Welcome to the definition game! The first definition is..... " + game_engine.word_obj.definition
     return question(welcome_message)
 
 @ask.on_session_started
