@@ -4,7 +4,7 @@ import json
 
 from word import Word
 
-from secrets import *
+from secret import *
 
 
 RANDOM_WORD_BASE_URL = 'http://api.wordnik.com:80/v4/words.json/randomWord?'

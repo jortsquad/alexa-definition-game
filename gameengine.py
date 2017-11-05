@@ -17,18 +17,19 @@ class GameEngine:
         self.total_score = 0
         self.round_score = DEFAULT_SCORE
         self.word_obj = dictionary.get_word()
+        print self.word_obj.word
 
     # Go to next_round
     #returns (isGameStillRunning, total_score, definition)
     def next_round(self):
         if(self.round >= 10):
-            return (False, total_score, "")
+            return (False, self.total_score, "")
         self.round += 1
         self.word_obj = dictionary.get_word()
         self.round_score = DEFAULT_SCORE
-        return (True, total_score, self.word_obj.definition)
+        return (True, self.total_score, self.word_obj.definition)
 
-    def guess(self, guessWord):
+    def try_guess(self, guessWord):
         self.guess += 1
         if self.word == guessWord:
             self.total_score += self.round_score
@@ -41,14 +42,12 @@ class GameEngine:
             self.round_score -= DEFAULT_WRONG_GUESS_PENALTY
             return (False, "Wrong. Guess again.")
 
-    def hint(self):
+    def get_hint(self):
         if not self.hint:
             hint = True
             self.round_score -= DEFAULT_HINT_PENALTY
 
-        hint_string = "The first letter is" + \
-            self.word_obj.word[0] + "... The length is " + \
-            str(len(self.word_obj.word))
+        hint_string = "The first letter is" + self.word_obj.word[0] + "... The length is " + str(len(self.word_obj.word))
 
         return hint_string
 
