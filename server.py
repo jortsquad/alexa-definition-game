@@ -69,21 +69,15 @@ def skip():
 
     skip_message = game_engine.skip()
 
-<<<<<<< HEAD
     next_round_tuple = game_engine.next_round()
     if next_round_tuple[0]:
         score = next_round_tuple[1]
         new_definition = next_round_tuple[2]
 
         session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-        return statement(skip_message + "... You have " + str(score) + " points. New word definition is....." + new_definition)
+        return question(skip_message + "... You have " + str(score) + " points. New word definition is....." + new_definition)
     else:
         pass
-
-=======
-    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return question(skip_message + "... New word definition is " + new_definition)
->>>>>>> 5c71862d719b100ba066c1835cd92adc0d314ab4
 
 @ask.intent("RepeatIntent")
 def repeat():
