@@ -4,6 +4,7 @@ from enum import Enum
 import json
 import os
 from binascii import hexlify
+import jsonpickle
 
 from gameengine import GameEngine
 
@@ -61,7 +62,7 @@ def start_skill():
 
 @ask.on_session_started
 def new_session():
-    session.attributes["game_engine"] = GameEngine()
+    session.attributes["game_engine"] = jsonpickle.encode(GameEngine())
     print "session started"
 
 # intents that the game will use
@@ -78,7 +79,9 @@ def guess(UserGuess):
 
 @ask.intent("HintIntent")
 def hint():
-    hint_given = session.attributes["game_engine"].hint()
+    game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    hint_given = game_engine.get_hint()
+    #hint_given = session.attributes["game_engine"].get_hint()
     return statement(hint_given)
 
 @ask.intent("SkipIntent")

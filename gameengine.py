@@ -37,13 +37,12 @@ class GameEngine:
             self.round_score -= DEFAULT_WRONG_GUESS_PENALTY
             return (False, "Wrong. Guess again.")
 
-    def hint(self):
+    def get_hint(self):
         if not self.hint:
             hint = True
             self.round_score -= DEFAULT_HINT_PENALTY
 
-        hint_string = "The first letter is" + word_obj.word[0]
-        + "... The length is " + len(word_obj.word)
+        hint_string = "The first letter is" + self.word_obj.word[0] + "... The length is " + str(len(self.word_obj.word))
 
         return hint_string
 
