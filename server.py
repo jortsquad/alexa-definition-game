@@ -29,7 +29,11 @@ def new_session():
 @ask.intent("NewGameIntent")
 def new_game():
     print 'new game'
-    return question("new game")
+    new_game_engine = GameEngine()
+    new_game_engine.gen_new_word()
+    new_definition = new_game_engine.word_obj.definition
+    session.attributes["game_engine"] = jsonpickle.encode(new_game_engine)
+    return question("This is a new game. The first definition is...... " + new_definition)
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
@@ -101,4 +105,4 @@ def homepage():
 
 if __name__ == '__main__':
     app.secret_key = hexlify(os.urandom(24))
-    app.run()
+    app.run(debug=True)
