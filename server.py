@@ -56,7 +56,7 @@ def skip():
     new_definition = game_engine.next_round()[2]
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(skip_message + "... New word definition is " + new_definition)
+    return statement(skip_message + "... New word definition is...... " + new_definition)
 
 @ask.intent("RepeatIntent")
 def repeat():
