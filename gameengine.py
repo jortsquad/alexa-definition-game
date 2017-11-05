@@ -23,11 +23,12 @@ class GameEngine:
         self.round += 1
         self.word_obj = dictionary.get_word()
         self.round_score = DEFAULT_SCORE
+        self.guess = 0
         return (True, self.total_score, self.word_obj.definition)
 
-    def try_guess(self, guessWord):
+    def try_guess(self, guess_word):
         self.guess += 1
-        if self.word == guessWord:
+        if self.word_obj.is_similar(guess_word):
             self.total_score += self.round_score
             self.round_score = DEFAULT_SCORE
             return (True, "Right!")
@@ -43,7 +44,7 @@ class GameEngine:
             hint = True
             self.round_score -= DEFAULT_HINT_PENALTY
 
-        hint_string = "The first letter is" + self.word_obj.word[0] + "... The length is " + str(len(self.word_obj.word))
+        hint_string = "The first letter is " + self.word_obj.word[0] + "... The length is " + str(len(self.word_obj.word))
 
         return hint_string
 

@@ -72,27 +72,43 @@ def new_game():
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
-    guess_message = session.attributes["game_engine"].try_guess(UserGuess)
+    game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    
+    guess_message = game_engine.try_guess(UserGuess)
+
     if guess_message[0] == True:
-        session.attributes["game_engine"].next_round()
+        game_engine.next_round()
+
+    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
+
     return statement(guess_message[1])
 
 @ask.intent("HintIntent")
 def hint():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    
     hint_given = game_engine.get_hint()
-    #hint_given = session.attributes["game_engine"].get_hint()
+
+    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
     return statement(hint_given)
 
 @ask.intent("SkipIntent")
 def skip():
-    skip_message = session.attributes["game_engine"].skip()
-    session.attributes["game_engine"].next_round()
+    game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    
+    skip_message = game_engine.skip()
+    game_engine.next_round()
+
+    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
     return statement(skip_message)
 
 @ask.intent("RepeatIntent")
 def repeat():
-    repeat_message = session.attributes["game_engine"].repeat()
+    game_engine = jsonpickle.decode(session.attributes["game_engine"])
+    
+    repeat_message = game_engine.repeat()
+    
+    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
     return statement(repeat_message)
 
 @ask.intent("ExitIntent")
