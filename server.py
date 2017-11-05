@@ -99,8 +99,8 @@ def repeat():
 
 @ask.intent("AMAZON.HelpIntent")
 def help():
-    print 'HELP'
-    pass
+    help_statement = "You asked for help... You can say..... guess.....hint.....skip.......repeat.......new game......or stop"
+    return question(help_statement)
 
 @ask.intent("AMAZON.StopIntent")
 def stop():
