@@ -33,7 +33,16 @@ def guess(UserGuess):
     guess_message = game_engine.try_guess(UserGuess)
 
     if guess_message[0] == True:
-        game_engine.next_round()
+        next_round_tuple = game_engine.next_round()
+        if next_round_tuple[0]:
+            score = next_round_tuple[1]
+            new_definition = next_round_tuple[2]
+
+            session.attributes["game_engine"] = jsonpickle.encode(game_engine)
+            return statement(guess_message[1] + "... You have " + str(score) + " points. New word definition is....." + new_definition)
+        else:
+            pass
+
 
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
 
@@ -53,10 +62,17 @@ def skip():
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
 
     skip_message = game_engine.skip()
-    new_definition = game_engine.next_round()[2]
 
-    session.attributes["game_engine"] = jsonpickle.encode(game_engine)
-    return statement(skip_message + "... New word definition is...... " + new_definition)
+    next_round_tuple = game_engine.next_round()
+    if next_round_tuple[0]:
+        score = next_round_tuple[1]
+        new_definition = next_round_tuple[2]
+
+        session.attributes["game_engine"] = jsonpickle.encode(game_engine)
+        return statement(skip_message + "... You have " + str(score) + " points. New word definition is....." + new_definition)
+    else:
+        pass
+
 
 @ask.intent("RepeatIntent")
 def repeat():
@@ -79,4 +95,4 @@ def homepage():
 
 if __name__ == '__main__':
     app.secret_key = hexlify(os.urandom(24))
-    app.run(debug=True)
+    app.run()
