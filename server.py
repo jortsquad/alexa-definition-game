@@ -37,7 +37,7 @@ def new_game():
 
 @ask.intent("GuessIntent")
 def guess(UserGuess):
-    print UserGuess
+    print "Guess: " + UserGuess
     game_engine = jsonpickle.decode(session.attributes["game_engine"])
 
     guess_message = game_engine.try_guess(UserGuess)
@@ -92,9 +92,16 @@ def repeat():
     session.attributes["game_engine"] = jsonpickle.encode(game_engine)
     return question(repeat_message)
 
-@ask.intent("ExitIntent")
-def exit():
-    print 'exiting'
+@ask.intent("AMAZON.HelpIntent")
+def help():
+    pass
+
+@ask.intent("AMAZON.StopIntent")
+def stop():
+    return statement("Goodbye.")
+
+@ask.intent("AMAZON.CancelIntent")
+def cancel():
     pass
 
 
