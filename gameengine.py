@@ -19,7 +19,7 @@ class GameEngine:
   
     def gen_new_word(self):
         self.word_obj = dictionary.get_word()
-        print self.word_obj.word
+        print "new word: " + self.word_obj.word
     
     # Go to next_round
     #returns (isGameStillRunning, total_score, definition)
@@ -27,7 +27,7 @@ class GameEngine:
         if(self.round >= 10):
             return (False, self.total_score, "")
         self.round += 1
-        self.word_obj = dictionary.get_word()
+        self.gen_new_word()
         self.round_score = DEFAULT_SCORE
         self.guess = 0
         return (True, self.total_score, self.word_obj.definition)
@@ -66,4 +66,4 @@ class GameEngine:
         self.hint = False
         self.total_score = 0
         self.round_score = DEFAULT_SCORE
-        self.word_obj = dictionary.get_word()
+        self.gen_new_word()
