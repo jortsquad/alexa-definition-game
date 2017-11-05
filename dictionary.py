@@ -27,8 +27,12 @@ class Dictionary():
         return Word(word, definition, synonyms)
 
     # Determines whether or not a given word (and definition) is valid
-    def _is_word_valid(self, word, definition):
+    def _is_word_valid(self, word, definitions):
         if definition is None:
+            return False
+        if len(definition) > 3 and defintion.lower()[:3] == 'see':
+            return False
+        if word.lower() in definition.lower():
             return False
         if len(word) == 0:
             return False
