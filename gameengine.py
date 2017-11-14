@@ -4,7 +4,7 @@ DEFAULT_WRONG_GUESS_PENALTY = 2
 
 # get dictionary
 from dictionary import Dictionary
-dictionary = Dictionary()
+dictionary = Dictionary("dictionary.json")
 
 
 class GameEngine:

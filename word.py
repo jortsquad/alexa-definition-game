@@ -21,18 +21,12 @@ class Word:
 
         return (sndx + ('0' * length))[:length]
 
-    def __init__(self, word, definition, synonyms):
+    def __init__(self, word, definition):
         self.word = word
         self.definition = definition
-        self.synonyms = synonyms
 
     def __str__(self):
-        syn_text = ''
-        for i in range(len(self.synonyms)):
-            if i > 0:
-                syn_text += ', '
-            syn_text += self.synonyms[i]
-        return self.word + ': ' + self.definition + ' [' + syn_text + ']'
+        return self.word + ': ' + self.definition
 
     def is_similar(self, other_word):
         soundex_max_threshold = 2
@@ -44,11 +38,4 @@ class Word:
 
         if other_word.lower() == self.word.lower() or soundex_edit_distance <= soundex_max_threshold or jaccard_int[0] >= jaccard_min_threshold or jaccard_int[1] >= intersection_threshold:
             return True
-        for synonym in self.synonyms:
-            soundex_edit_distance = edit_distance(self.soundex(synonym.lower()), self.soundex(other_word))
-            jaccard_int = jaccard_and_intersection(3, synonym.lower(), other_word)
-
-            if synonym.lower() == self.word.lower() or soundex_edit_distance <= soundex_max_threshold or jaccard_int[0] >= jaccard_min_threshold or jaccard_int[1] >= intersection_threshold:
-                return True
-
         return False

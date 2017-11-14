@@ -105,12 +105,12 @@ def help():
 @ask.intent("AMAZON.StopIntent")
 def stop():
     return statement("Goodbye.")
-
+'''
 @ask.intent("AMAZON.CancelIntent")
 def cancel():
     print 'CANCEL'
     pass
-
+'''
 
 # old intents
 @app.route("/")
