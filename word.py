@@ -1,6 +1,3 @@
-from jaccard_coefficient import jaccard_and_intersection
-from edit_distance import edit_distance
-
 class Word:
     def soundex(self, name):
         length = 4
@@ -29,13 +26,6 @@ class Word:
         return self.word + ': ' + self.definition
 
     def is_similar(self, other_word):
-        soundex_max_threshold = 2
-        jaccard_min_threshold = 0.4
-        intersection_threshold = 2
-
-        soundex_edit_distance = edit_distance(self.soundex(self.word.lower()), self.soundex(other_word))
-        jaccard_int = jaccard_and_intersection(3, self.word.lower(), other_word)
-
-        if other_word.lower() == self.word.lower() or soundex_edit_distance <= soundex_max_threshold or jaccard_int[0] >= jaccard_min_threshold or jaccard_int[1] >= intersection_threshold:
+        if other_word.lower().strip() == self.word.lower().strip():
             return True
         return False
